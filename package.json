@@ -74,7 +74,7 @@
 		"@watergis/svelte-maplibre-style-switcher": "^2.0.1",
 		"bits-ui": "^0.19.6",
 		"clsx": "^2.1.0",
-		"cmdk-sv": "^0.0.15",
+		"cmdk-sv": "^0.0.18",
 		"deck.gl": "^9.0.1",
 		"geojson": "^0.5.0",
 		"geojson-polyline": "^1.0.3",
