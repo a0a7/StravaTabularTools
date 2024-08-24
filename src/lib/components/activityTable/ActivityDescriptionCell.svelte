@@ -17,7 +17,7 @@
 				{@html getActivityIconURL(sport_type)}
 			</div>
 		</Tooltip.Trigger>
-		<Tooltip.Content class="bg-card">
+		<Tooltip.Content class="bg-card text-foreground">
 			<p>{sport_type.replace(/(?<!^)([A-Z])/g, ' $1')}</p>
 		</Tooltip.Content>
 	</Tooltip.Root>
