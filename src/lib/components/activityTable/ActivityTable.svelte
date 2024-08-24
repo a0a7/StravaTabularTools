@@ -54,6 +54,36 @@
 			}
 		}),
 		table.column({
+			accessor: 'elapsed_time',
+			header: 'Elapsed Time',
+			cell: ({ value }) => {
+				if (value === 0) {
+					return '-';
+				}
+				const hours = Math.floor(value / 3600);
+				const minutes = Math.floor((value % 3600) / 60);
+
+				if (hours > 0) {
+					return `${hours}h ${minutes}m`;
+				} else {
+					return `${minutes}m`;
+				}
+			},
+			plugins: {
+				filter: {
+					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
+				}
+			}
+		}),
+		table.column({
 			accessor: 'distance',
 			header: 'Distance',
 			cell: ({ value }) => {
@@ -62,13 +92,21 @@
 				}
 				return (
 					(value / 1000).toFixed(
-						Math.max(0, 2 - (value === 0 ? -1 : Math.floor(Math.log10(value))))
+						Math.max(1, 2 - (value === 0 ? -1 : Math.floor(Math.log10(value))))
 					) + ' km'
 				);
 			},
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -84,6 +122,14 @@
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -91,7 +137,7 @@
 			accessor: 'kilojoules',
 			header: 'Calories',
 			cell: ({ value }) => {
-				if (value === undefined) {
+				if (value === undefined || value === 0) {
 					return '-';
 				}
 				return `${(value / 4.18).toFixed(0)} kcal`;
@@ -99,6 +145,14 @@
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -109,11 +163,19 @@
 				if (value === 0) {
 					return '-';
 				}
-				return `${(value * 3.6).toFixed(0)} kmh`;
+				return `${(value * 3.6).toFixed(0)} kph`;
 			},
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -124,11 +186,19 @@
 				if (value === undefined) {
 					return '-';
 				}
-				return `${value.toFixed(0)} W`;
+				return `${value.toFixed(1)} W`;
 			},
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -139,11 +209,19 @@
 				if (value === undefined) {
 					return '-';
 				}
-				return value.toFixed(0);
+				return `${value.toFixed(0)} bpm`;
 			},
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -156,6 +234,14 @@
 			plugins: {
 				filter: {
 					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
 				}
 			}
 		}),
@@ -186,23 +272,21 @@
 	const { sortKeys } = pluginStates.sort;
 
 	const colsHiddenByDefault = [
-		'total_elevation_gain',
-		'average_speed',
-		'average_heartrate',
-		'kilojoules',
-		'average_watts',
 		'idString'
 	];
 
 	const hidableCols = [
+		'elapsed_time',
 		'distance',
 		'elevation',
 		'kilojoules',
 		'average_speed',
 		'average_watts',
 		'average_heartrate',
-		'start_date_local'
+		'start_date_local',
+		'total_elevation_gain',
 	];
+
 	let hideForId = Object.fromEntries(ids.map((id) => [id, !colsHiddenByDefault.includes(id)]));
 	$: $hiddenColumnIds = Object.entries(hideForId)
 		.filter(([, hide]) => !hide)
