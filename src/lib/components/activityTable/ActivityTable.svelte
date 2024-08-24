@@ -21,6 +21,7 @@
 	import DataTableCheckbox from './DataTableCheckbox.svelte';
 
 	import type { StravaActivity } from '$lib/activities';
+	import ActivityTimeCell from './ActivityTimeCell.svelte';
 
 	export let activityData: StravaActivity[];
 	const table = createTable(readable(activityData), {
@@ -56,19 +57,8 @@
 		table.column({
 			accessor: 'elapsed_time',
 			header: 'Elapsed Time',
-			cell: ({ value }) => {
-				if (value === 0) {
-					return '-';
-				}
-				const hours = Math.floor(value / 3600);
-				const minutes = Math.floor((value % 3600) / 60);
-
-				if (hours > 0) {
-					return `${hours}h ${minutes}m`;
-				} else {
-					return `${minutes}m`;
-				}
-			},
+			cell: ({ value }) =>
+				createRender(ActivityTimeCell, { value }),
 			plugins: {
 				filter: {
 					exclude: true
@@ -86,19 +76,8 @@
 		table.column({
 			accessor: 'moving_time',
 			header: 'Moving Time',
-			cell: ({ value }) => {
-				if (value === 0) {
-					return '-';
-				}
-				const hours = Math.floor(value / 3600);
-				const minutes = Math.floor((value % 3600) / 60);
-
-				if (hours > 0) {
-					return `${hours}h ${minutes}m`;
-				} else {
-					return `${minutes}m`;
-				}
-			},
+			cell: ({ value }) =>
+				createRender(ActivityTimeCell, { value }),
 			plugins: {
 				filter: {
 					exclude: true
@@ -165,12 +144,12 @@
 		}),
 		table.column({
 			accessor: 'kilojoules',
-			header: 'Calories',
+			header: 'Power Output',
 			cell: ({ value }) => {
 				if (value === undefined || value === 0) {
 					return '-';
 				}
-				return `${(value / 4.18).toFixed(0)} kcal`;
+				return `${value.toFixed(0)} kJ`;
 			},
 			plugins: {
 				filter: {
@@ -193,7 +172,7 @@
 				if (value === 0) {
 					return '-';
 				}
-				return `${(value * 3.6).toFixed(0)} kph`;
+				return `${(value * 3.6).toFixed(1)} kph`;
 			},
 			plugins: {
 				filter: {
@@ -330,6 +309,7 @@
 	const { sortKeys } = pluginStates.sort;
 
 	const colsHiddenByDefault = [
+		'elapsed_time',
 		'idString'
 	];
 
