@@ -84,6 +84,36 @@
 			}
 		}),
 		table.column({
+			accessor: 'moving_time',
+			header: 'Moving Time',
+			cell: ({ value }) => {
+				if (value === 0) {
+					return '-';
+				}
+				const hours = Math.floor(value / 3600);
+				const minutes = Math.floor((value % 3600) / 60);
+
+				if (hours > 0) {
+					return `${hours}h ${minutes}m`;
+				} else {
+					return `${minutes}m`;
+				}
+			},
+			plugins: {
+				filter: {
+					exclude: true
+				},
+				sort: {
+					getSortValue(value: number) {
+						if (!value || value === undefined || value === 0) {
+							return 0;
+						}
+						return value;
+					}
+				}
+			}
+		}),
+		table.column({
 			accessor: 'distance',
 			header: 'Distance',
 			cell: ({ value }) => {
@@ -179,6 +209,34 @@
 				}
 			}
 		}),
+		table.column({
+			accessor: (item) => item,
+			header: 'Average Cadence',
+			id: 'average_cadence',
+			cell: ({ value: { average_cadence, sport_type } }) => {
+				if (!average_cadence || average_cadence === undefined || average_cadence === 0) {
+					return '-';
+				}
+				if (sport_type === 'Run' || sport_type === 'Hike' || sport_type === 'Walk' || sport_type === 'NordicSki' || sport_type === 'BackcountrySki' || sport_type === 'Snowshoe' || sport_type === 'IceSkate' || sport_type === 'InlineSkate' || sport_type === 'Swim') {
+					return `${average_cadence.toFixed(1)} spm`;
+				}
+				return `${average_cadence.toFixed(1)} rpm`;
+			},
+			plugins: {
+				sort: {
+					getSortValue({ average_cadence }: { average_cadence: number }) {
+						if (!average_cadence || average_cadence === undefined || average_cadence === 0) {
+							return 0;
+						}
+						return average_cadence;
+					}
+				},
+				filter: {
+					exclude: true,
+				}
+			}
+		}),
+
 		table.column({
 			accessor: 'average_watts',
 			header: 'Average Power',
@@ -277,10 +335,12 @@
 
 	const hidableCols = [
 		'elapsed_time',
+		'moving_time',
 		'distance',
 		'elevation',
 		'kilojoules',
 		'average_speed',
+		'average_cadence',
 		'average_watts',
 		'average_heartrate',
 		'start_date_local',
