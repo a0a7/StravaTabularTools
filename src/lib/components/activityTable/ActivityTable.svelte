@@ -217,10 +217,10 @@
 				if (!average_cadence || average_cadence === undefined || average_cadence === 0) {
 					return '-';
 				}
-				if (sport_type === 'Run' || sport_type === 'Hike' || sport_type === 'Walk' || sport_type === 'NordicSki' || sport_type === 'BackcountrySki' || sport_type === 'Snowshoe' || sport_type === 'IceSkate' || sport_type === 'InlineSkate' || sport_type === 'Swim') {
-					return `${average_cadence.toFixed(1)} spm`;
+				if (sport_type === 'Ride' || sport_type === 'VirtualRide' || sport_type === 'EBikeRide' || sport_type === 'Handcycle' || sport_type === 'Velomobile' || sport_type === 'EMountainBikeRide' || sport_type === 'GravelRide' || sport_type === 'MountainBikeRide' || sport_type === 'Wheelchair' ) {
+					return `${average_cadence.toFixed(1)} rpm`;
 				}
-				return `${average_cadence.toFixed(1)} rpm`;
+				return `${average_cadence.toFixed(1)} spm`;
 			},
 			plugins: {
 				sort: {
