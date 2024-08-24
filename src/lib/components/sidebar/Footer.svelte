@@ -61,7 +61,7 @@
 				{/if}
 			</Button>
 			<h5 class="mx-2 leading-[1.125] mb-1 md:w-full">
-				Multi-activity&nbsp;mapper<img
+				Strava&nbsp;Analysis&nbsp;Tools<img
 					src="img/icon/logo_outline.png"
 					alt="Strava Multi-activity Mapper Logo"
 					class="w-5 h-5 ml-1 mr-[3px] inline dark:brightness-[10] -translate-y-px"

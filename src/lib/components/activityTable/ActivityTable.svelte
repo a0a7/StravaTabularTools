@@ -234,7 +234,7 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-	<ScrollArea class="h-[225px] md:h-[336px] rounded-md border" orientation="both">
+	<ScrollArea class="h-[90vh] md:h-[60vh] rounded-md border" orientation="both">
 		<Table.Root {...$tableAttrs} class="bg-background">
 			<Table.Header>
 				{#each $headerRows as headerRow}
