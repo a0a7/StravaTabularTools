@@ -28,7 +28,7 @@
 		<use xlink:href="#bottomPath" fill="none" />
 		<text fill="currentColor" text-anchor="middle">
 			<textPath class="tracking-wide" xlink:href="#topPath" startOffset="25%"
-				>ACTIVITY HEATMAP</textPath
+				>ANALYSIS TOOLS</textPath
 			>
 		</text>
 		<text fill="currentColor" text-anchor="middle">

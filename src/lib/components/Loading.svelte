@@ -15,7 +15,7 @@
 		<h3>Experiencing&nbsp;issues?</h3>
 		<h3>
 			Report&nbsp;them&nbsp;on&nbsp;<a
-				href="https://github.com/sudolev/StravaMultiMapper"
+				href="https://github.com/a0a7/StravaTabularTools"
 				target="_blank"
 				rel="noopener noreferrer">GitHub</a
 			>&nbsp;or&nbsp;<a
