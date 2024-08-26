@@ -23,6 +23,7 @@
 	import { Deck } from '@deck.gl/core';
 	import { MapboxOverlay as DeckOverlay } from '@deck.gl/mapbox';
 	import { GeoJsonLayer } from '@deck.gl/layers';
+	import ScrollArea from '../ui/scroll-area/scroll-area.svelte';
 
 	let isClient: boolean = false;
 	let activityTypeFilter: string;
@@ -127,7 +128,7 @@
 {#if error}
 	<ErrorNotice content={error} />
 {/if}
-<Card.Root>
+<Card.Root >
 	<Card.Header>
 		<div class="flex flex-row justify-center items-center">
 			{#if $page.data.session?.user}
@@ -153,11 +154,10 @@
 			{/if}
 		</div>
 	</Card.Header>
+	<Card.Content>
 	{#if allGeojsonFeatures.length > 0 && !(Object.keys(allGeojsonFeatures[0]).length === 0) && !error}
-		<Separator class="mt-3 mx-5 w-[calc(100vw-2.5rem)] md:w-auto" />
 		<ActivityTable activityData={activities} />
 	{:else if allGeojsonFeatures.length == 0 && loading && !error}
-		<Card.Content>
 			<Separator />
 			<div class="flex flex-col justify-center items-center w-full mt-2">
 				<div class="pb-8 text-center">
@@ -173,9 +173,7 @@
 					duration="1.1s"
 				/>
 			</div>
-		</Card.Content>
 	{:else if allGeojsonFeatures.length === 1 && Object.keys(allGeojsonFeatures[0]).length === 0 && !error}
-		<Card.Content>
 			<Separator />
 			<div class="flex flex-col justify-center items-center w-full mt-2">
 				<div class="pb-8 text-center">
@@ -196,9 +194,7 @@
 					</p>
 				</div>
 			</div>
-		</Card.Content>
 	{:else}
-		<Card.Content>
 			<Separator />
 			<div class="flex flex-col justify-center items-center w-full mt-2">
 				<div class="pb-8 text-center">
@@ -219,8 +215,8 @@
 					</p>
 				</div>
 			</div>
-		</Card.Content>
 	{/if}
+	</Card.Content>
 	<Card.Footer>
 		<Button
 			class="py-[6px] px-[10px] bg-background hover:bg-card dark:hover:bg-muted border flex items-center mx-auto h-10 my-3"
