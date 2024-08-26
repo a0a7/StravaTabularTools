@@ -354,9 +354,15 @@
 		.map(([id]) => id);
 </script>
 
-<div class="mx-5">
-	<ActivityTypeSelect /> <CommuteSelect /> <DateRangePicker activities={activityData} bind:startDate bind:endDate />
-	<Separator class="mt-3 mx-5 w-[calc(100vw-2.5rem)] md:w-auto" />
+<div class="max-w-[calc(100vw-3.1rem)] md:max-w-[calc(100vw-5.6rem)]">
+	<Separator class="mt-3 w-full" />
+	<ScrollArea class="rounded-md" orientation="horizontal">
+		<div class="flex space-x-1 pt-4">
+			<ActivityTypeSelect />
+			<CommuteSelect />
+			<DateRangePicker activities={activityData} bind:startDate bind:endDate />
+		</div>
+	</ScrollArea>
 
 	<div class="flex items-center py-4">
 		<Input
@@ -382,7 +388,7 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-	<ScrollArea class="h-[90vh] md:h-[60vh] rounded-md border" orientation="both">
+	<ScrollArea class="h-[90vh] md:h-[60vh] max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-5rem)] rounded-md border" orientation="both">
 		<Table.Root {...$tableAttrs} class="bg-background">
 			<Table.Header>
 				{#each $headerRows as headerRow}
