@@ -96,7 +96,6 @@
 						return sport_type;
 					}
 				}
-
 			}
 		}),
 		table.column({
@@ -303,7 +302,6 @@
 				},
 			}
 		}),
-
 		table.column({
 			accessor: 'average_watts',
 			header: 'Average Power',
