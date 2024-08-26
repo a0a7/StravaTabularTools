@@ -30,7 +30,7 @@
 		<Tooltip.Trigger>
 			<p class="inline-block">{timeString}</p>
 		</Tooltip.Trigger>
-		<Tooltip.Content class="bg-card text-foreground">
+		<Tooltip.Content class="bg-card text-foreground drop-shadow-md">
 			{#if fullTimeString === '-'}
 				<p class="inline-block">No time tracked</p>
 			{:else}
