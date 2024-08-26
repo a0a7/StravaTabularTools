@@ -39,32 +39,23 @@
 		commuteFilter: addTableFilter({
 			// @ts-expect-error: It's chill
 			fn: ({ filterValue, value }) => { 
-				console.log('Trying to filter by commute status: ', filterValue, value);
-			if (filterValue = 'dontFilter') {
-				return true;
-			} else if (filterValue = 'onlyCommutes') {
-				return value.commute === true;
-			} else if (filterValue = 'excludeCommutes') {
-				return value.commute === false;
-			} else {
-				return true;
+				if (filterValue = 'dontFilter') {
+					return true;
+				} else if (filterValue = 'onlyCommutes') {
+					return value.commute === true;
+				} else if (filterValue = 'excludeCommutes') {
+					return value.commute === false;
+				} else {
+					return true;
+				}
 			}
-		}
 		}),
 		disciplineFilter: addTableFilter({
 			// @ts-expect-error: It's chill
-			fn: ({ filterValue, value }) => { 
-				console.log('Trying to filter by commute status: ', filterValue, value);
-			if (filterValue = 'dontFilter') {
-				return true;
-			} else if (filterValue = 'onlyCommutes') {
-				return value.commute === true;
-			} else if (filterValue = 'excludeCommutes') {
-				return value.commute === false;
-			} else {
-				return true;
+			fn: ({ filterValue, value }) => {
+				console.log('Filtering by discipline: ', filterValue, value);
+				return filterValue.includes(value);
 			}
-		}
 		}),
 
 		hide: addHiddenColumns(),
@@ -94,7 +85,15 @@
 					getFilterValue({ commute }: { commute: string }) {
 						return commute;
 					}
+				},
+				disciplineFilter: {
+					exclude: false,
+					getFilterValue({ sport_type }: { sport_type: string }) {
+						console.log('Filtering by discipline: ', sport_type);
+						return sport_type;
+					}
 				}
+
 			}
 		}),
 		table.column({
@@ -107,6 +106,9 @@
 					exclude: true
 				},
 				commuteFilter: {
+					exclude: true
+				},
+				disciplineFilter: {
 					exclude: true
 				},
 				sort: {
@@ -129,6 +131,9 @@
 					exclude: true
 				},
 				commuteFilter: {
+					exclude: true
+				},
+				disciplineFilter: {
 					exclude: true
 				},
 				sort: {
@@ -161,6 +166,9 @@
 				commuteFilter: {
 					exclude: true
 				},
+				disciplineFilter: {
+					exclude: true
+				},
 				sort: {
 					getSortValue(value: number) {
 						if (!value || value === undefined || value === 0) {
@@ -185,6 +193,9 @@
 					exclude: true
 				},
 				commuteFilter: {
+					exclude: true
+				},
+				disciplineFilter: {
 					exclude: true
 				},
 				sort: {
@@ -213,6 +224,9 @@
 				commuteFilter: {
 					exclude: true
 				},
+				disciplineFilter: {
+					exclude: true
+				},
 				sort: {
 					getSortValue(value: number) {
 						if (!value || value === undefined || value === 0) {
@@ -237,6 +251,9 @@
 					exclude: true
 				},
 				commuteFilter: {
+					exclude: true
+				},
+				disciplineFilter: {
 					exclude: true
 				},
 				sort: {
@@ -277,6 +294,9 @@
 				commuteFilter: {
 					exclude: true
 				},
+				disciplineFilter: {
+					exclude: true
+				},
 			}
 		}),
 
@@ -294,6 +314,9 @@
 					exclude: true
 				},
 				commuteFilter: {
+					exclude: true
+				},
+				disciplineFilter: {
 					exclude: true
 				},
 				sort: {
@@ -322,6 +345,9 @@
 				commuteFilter: {
 					exclude: true
 				},
+				disciplineFilter: {
+					exclude: true
+				},
 				sort: {
 					getSortValue(value: number) {
 						if (!value || value === undefined || value === 0) {
@@ -345,6 +371,9 @@
 				commuteFilter: {
 					exclude: true
 				},
+				disciplineFilter: {
+					exclude: true
+				},
 				sort: {
 					getSortValue(value: number) {
 						if (!value || value === undefined || value === 0) {
@@ -364,6 +393,9 @@
 					exclude: true
 				},
 				commuteFilter: {
+					exclude: true
+				},
+				disciplineFilter: {
 					exclude: true
 				},
 			}
