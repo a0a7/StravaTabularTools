@@ -6,8 +6,8 @@
 </script>
 
 {#if content}
-	<Tooltip.Root openDelay={50}>
-		<Tooltip.Trigger>
+	<Tooltip.Root openDelay={50} >
+		<Tooltip.Trigger >
 			<div class="svg-icon inline-block mx-1 w-3 h-3">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
 					><path
@@ -16,8 +16,8 @@
 				>
 			</div>
 		</Tooltip.Trigger>
-		<Tooltip.Content class="bg-card">
-			<p>{content}</p>
+		<Tooltip.Content class="bg-card text-foreground drop-shadow-md z-40 w-[120px]" side={"top"} avoidCollisions={false} overlap={true} >
+			<p class="z-50">{content}</p>
 		</Tooltip.Content>
 	</Tooltip.Root>
 {/if}
