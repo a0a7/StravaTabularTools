@@ -7,7 +7,7 @@
 		addHiddenColumns,
 		addSelectedRows // @ts-expect-error: this import does exist
 	} from 'svelte-headless-table/plugins';
-	import { readable } from 'svelte/store';
+	import { readable, writable } from 'svelte/store';
 	import * as Table from '$lib/components/ui/table'; // @ts-expect-error: this import does exist
 	import ArrowUpDown from 'lucide-svelte/icons/arrow-up-down'; // @ts-expect-error: this import does exist
 	import ChevronDown from 'lucide-svelte/icons/chevron-down'; // @ts-expect-error: this import does exist
@@ -38,13 +38,18 @@
 		}),
 		commuteFilter: addTableFilter({
 			// @ts-expect-error: It's chill
-			fn: ({ commuteFilter, value }) => { if (commuteFilter = 'dontFilter') {
+			fn: ({ commuteFilterValue, value }) => { 
+				console.log('Trying to filter by commute status: ', commuteFilterValue, value);
+			if (commuteFilterValue = 'dontFilter') {
 				return true;
-			} else if (commuteFilter = 'onlyCommutes') {
+			} else if (commuteFilterValue = 'onlyCommutes') {
 				return value.commute === true;
-			} else if (commuteFilter = 'excludeCommutes') {
+			} else if (commuteFilterValue = 'excludeCommutes') {
 				return value.commute === false;
-			}}
+			} else {
+				return true;
+			}
+		}
 		}),
 		hide: addHiddenColumns(),
 		select: addSelectedRows()
@@ -252,7 +257,10 @@
 				},
 				searchFilter: {
 					exclude: true,
-				}
+				},
+				commuteFilter: {
+					exclude: true
+				},
 			}
 		}),
 
@@ -338,7 +346,10 @@
 			plugins: {
 				searchFilter: {
 					exclude: true
-				}
+				},
+				commuteFilter: {
+					exclude: true
+				},
 			}
 		})
 	]);
@@ -353,6 +364,10 @@
 
 	// const { pageIndex, hasNextPage, hasPreviousPage } = pluginStates.page;
 	const { filterValue } = pluginStates.searchFilter;
+	const { commuteFilterValue } = pluginStates.commuteFilter;
+
+	$: console.log(commuteFilterValue);
+
 	const { hiddenColumnIds } = pluginStates.hide;
 	const { selectedDataIds } = pluginStates.select;
 	const { sortKeys } = pluginStates.sort;
@@ -396,7 +411,6 @@
 		.filter(([, hide]) => !hide)
 		.map(([id]) => id);
 
-	let commuteFilter: string;
 	let activityTypesFilteredFor: string;
 </script>
 
@@ -405,7 +419,7 @@
 	<ScrollArea class="rounded-md" orientation="horizontal">
 		<div class="flex space-x-1 pt-4">
 			<ActivityTypeSelect bind:value={activityTypesFilteredFor}/>
-			<CommuteSelect bind:value={commuteFilter}/>
+			<CommuteSelect bind:value={$commuteFilterValue}/>
 			<DateRangePicker activities={activityData} bind:startDate bind:endDate />
 		</div>
 	</ScrollArea>
