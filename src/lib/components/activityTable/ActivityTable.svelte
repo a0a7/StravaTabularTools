@@ -352,14 +352,17 @@
 	$: $hiddenColumnIds = Object.entries(hideForId)
 		.filter(([, hide]) => !hide)
 		.map(([id]) => id);
+
+	let commuteFilter: string;
+	let activityTypesFilteredFor: string;
 </script>
 
 <div class="max-w-[calc(100vw-3.1rem)] md:max-w-[calc(100vw-5.6rem)]">
 	<Separator class="mt-3 w-full" />
 	<ScrollArea class="rounded-md" orientation="horizontal">
 		<div class="flex space-x-1 pt-4">
-			<ActivityTypeSelect />
-			<CommuteSelect />
+			<ActivityTypeSelect bind:value={activityTypesFilteredFor}/>
+			<CommuteSelect bind:value={commuteFilter}/>
 			<DateRangePicker activities={activityData} bind:startDate bind:endDate />
 		</div>
 	</ScrollArea>
