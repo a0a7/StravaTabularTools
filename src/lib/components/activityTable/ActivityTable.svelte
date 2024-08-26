@@ -111,6 +111,7 @@
 				disciplineFilter: {
 					exclude: true
 				},
+
 				sort: {
 					getSortValue(value: number) {
 						if (!value || value === undefined || value === 0) {
