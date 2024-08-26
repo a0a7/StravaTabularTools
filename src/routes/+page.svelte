@@ -88,7 +88,7 @@
 				</div>
 			</ScrollArea>
 			{#if !onMobile}
-				<div class="mx-5">
+				<div class="mx-5 mt-8">
 					<Footer bind:onMobile />
 				</div>
 			{/if}

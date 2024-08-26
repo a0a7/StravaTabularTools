@@ -388,7 +388,7 @@
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	</div>
-	<ScrollArea class="h-[90vh] md:h-[60vh] max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-5rem)] rounded-md border" orientation="both">
+	<ScrollArea class="h-[85vh] md:h-[55vh] max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-5rem)] rounded-md border" orientation="both">
 		<Table.Root {...$tableAttrs} class="bg-background">
 			<Table.Header>
 				{#each $headerRows as headerRow}
