@@ -32,9 +32,19 @@
 	let startDate: any, endDate: any;
 	const table = createTable(readable(activityData), {
 		sort: addSortBy({ disableMultiSort: true }),
-		filter: addTableFilter({
+		searchFilter: addTableFilter({
 			// @ts-expect-error: It's chill
 			fn: ({ filterValue, value }) => value.includes(filterValue)
+		}),
+		commuteFilter: addTableFilter({
+			// @ts-expect-error: It's chill
+			fn: ({ commuteFilter, value }) => { if (commuteFilter = 'dontFilter') {
+				return true;
+			} else if (commuteFilter = 'onlyCommutes') {
+				return value.commute === true;
+			} else if (commuteFilter = 'excludeCommutes') {
+				return value.commute === false;
+			}}
 		}),
 		hide: addHiddenColumns(),
 		select: addSelectedRows()
@@ -52,10 +62,16 @@
 						return name;
 					}
 				},
-				filter: {
+				searchFilter: {
 					exclude: false,
 					getFilterValue({ name }: { name: string }) {
 						return name.toLowerCase();
+					}
+				},
+				commuteFilter: {
+					exclude: false,
+					getFilterValue({ commute }: { commute: string }) {
+						return commute;
 					}
 				}
 			}
@@ -66,7 +82,10 @@
 			cell: ({ value }) =>
 				createRender(ActivityTimeCell, { value }),
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -85,7 +104,10 @@
 			cell: ({ value }) =>
 				createRender(ActivityTimeCell, { value }),
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -112,7 +134,10 @@
 				);
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -135,7 +160,10 @@
 				return `${value.toFixed(0)} m`;
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -158,7 +186,10 @@
 				return `${value.toFixed(0)} kJ`;
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -181,7 +212,10 @@
 				return `${(value * 3.6).toFixed(1)} kph`;
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -216,7 +250,7 @@
 						return average_cadence;
 					}
 				},
-				filter: {
+				searchFilter: {
 					exclude: true,
 				}
 			}
@@ -232,7 +266,10 @@
 				return `${value.toFixed(1)} W`;
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -255,7 +292,10 @@
 				return `${value.toFixed(0)} bpm`;
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -275,7 +315,10 @@
 				return new Date(value).toLocaleDateString();
 			},
 			plugins: {
-				filter: {
+				searchFilter: {
+					exclude: true
+				},
+				commuteFilter: {
 					exclude: true
 				},
 				sort: {
@@ -293,7 +336,7 @@
 			header: '',
 			id: 'idString',
 			plugins: {
-				filter: {
+				searchFilter: {
 					exclude: true
 				}
 			}
@@ -309,7 +352,7 @@
 	const ids = flatColumns.map((col) => col.id);
 
 	// const { pageIndex, hasNextPage, hasPreviousPage } = pluginStates.page;
-	const { filterValue } = pluginStates.filter;
+	const { filterValue } = pluginStates.searchFilter;
 	const { hiddenColumnIds } = pluginStates.hide;
 	const { selectedDataIds } = pluginStates.select;
 	const { sortKeys } = pluginStates.sort;
