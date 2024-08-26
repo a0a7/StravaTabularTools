@@ -116,7 +116,7 @@
 		if (localStorage.getItem('activities')) {
 			activities = JSON.parse(localStorage.getItem('activities')!);
 		}
-		if ((allGeojsonFeatures.length == 0) || (heatmapCoords.length == 0) || (activities.length == 0)) {
+		if ((allGeojsonFeatures.length == 0) || (activities.length == 0)) {
 			console.log('Requesting activities from Strava');
 			getActivities();
 		}
