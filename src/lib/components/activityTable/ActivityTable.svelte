@@ -38,19 +38,35 @@
 		}),
 		commuteFilter: addTableFilter({
 			// @ts-expect-error: It's chill
-			fn: ({ commuteFilterValue, value }) => { 
-				console.log('Trying to filter by commute status: ', commuteFilterValue, value);
-			if (commuteFilterValue = 'dontFilter') {
+			fn: ({ filterValue, value }) => { 
+				console.log('Trying to filter by commute status: ', filterValue, value);
+			if (filterValue = 'dontFilter') {
 				return true;
-			} else if (commuteFilterValue = 'onlyCommutes') {
+			} else if (filterValue = 'onlyCommutes') {
 				return value.commute === true;
-			} else if (commuteFilterValue = 'excludeCommutes') {
+			} else if (filterValue = 'excludeCommutes') {
 				return value.commute === false;
 			} else {
 				return true;
 			}
 		}
 		}),
+		disciplineFilter: addTableFilter({
+			// @ts-expect-error: It's chill
+			fn: ({ filterValue, value }) => { 
+				console.log('Trying to filter by commute status: ', filterValue, value);
+			if (filterValue = 'dontFilter') {
+				return true;
+			} else if (filterValue = 'onlyCommutes') {
+				return value.commute === true;
+			} else if (filterValue = 'excludeCommutes') {
+				return value.commute === false;
+			} else {
+				return true;
+			}
+		}
+		}),
+
 		hide: addHiddenColumns(),
 		select: addSelectedRows()
 	});
@@ -365,6 +381,7 @@
 	// const { pageIndex, hasNextPage, hasPreviousPage } = pluginStates.page;
 	const { filterValue } = pluginStates.searchFilter;
 	const { commuteFilterValue } = pluginStates.commuteFilter;
+	const { activityTypesFilteredFor } = pluginStates.disciplineFilter;
 
 	$: console.log(commuteFilterValue);
 
@@ -411,14 +428,13 @@
 		.filter(([, hide]) => !hide)
 		.map(([id]) => id);
 
-	let activityTypesFilteredFor: string;
 </script>
 
 <div class="max-w-[calc(100vw-3.1rem)] md:max-w-[calc(100vw-5.6rem)]">
 	<Separator class="mt-3 w-full" />
 	<ScrollArea class="rounded-md" orientation="horizontal">
 		<div class="flex space-x-1 pt-4">
-			<ActivityTypeSelect bind:value={activityTypesFilteredFor}/>
+			<ActivityTypeSelect bind:value={$activityTypesFilteredFor}/>
 			<CommuteSelect bind:value={$commuteFilterValue}/>
 			<DateRangePicker activities={activityData} bind:startDate bind:endDate />
 		</div>
