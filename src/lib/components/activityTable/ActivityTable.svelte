@@ -38,12 +38,12 @@
 		}),
 		commuteFilter: addTableFilter({
 			// @ts-expect-error: It's chill
-			fn: ({ filterValue, value }) => { 
-				if (filterValue = 'dontFilter') {
+			fn: ({ commuteFilterValue, value }) => { 
+				if (commuteFilterValue = 'dontFilter') {
 					return true;
-				} else if (filterValue = 'onlyCommutes') {
+				} else if (commuteFilterValue = 'onlyCommutes') {
 					return value.commute === true;
-				} else if (filterValue = 'excludeCommutes') {
+				} else if (commuteFilterValue = 'excludeCommutes') {
 					return value.commute === false;
 				} else {
 					return true;
@@ -52,9 +52,12 @@
 		}),
 		disciplineFilter: addTableFilter({
 			// @ts-expect-error: It's chill
-			fn: ({ filterValue, value }) => {
-				console.log('Filtering by discipline: ', filterValue, value);
-				return filterValue.includes(value);
+			fn: ({ activityTypesFilteredFor, value }) => {
+				console.log('Filtering by discipline: ', activityTypesFilteredFor, value);
+				if (activityTypesFilteredFor !== undefined) {
+					return activityTypesFilteredFor.includes(value);
+				}
+				return true;
 			}
 		}),
 
