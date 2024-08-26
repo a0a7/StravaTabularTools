@@ -138,7 +138,7 @@
 							src={$page.data.session.user.image}
 							alt="{$page.data.session.user.name} Profile picture"
 						/>
-						<Avatar.Fallback></Avatar.Fallback>
+						<Avatar.Fallback class="rounded-xl"></Avatar.Fallback>
 					</Avatar.Root>
 					<p class="mx-3 leading-[1.125]">
 						Connected&nbsp;to&nbsp;Strava&nbsp;as<br /><b
