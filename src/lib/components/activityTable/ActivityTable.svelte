@@ -22,8 +22,14 @@
 
 	import type { StravaActivity } from '$lib/activities';
 	import ActivityTimeCell from './ActivityTimeCell.svelte';
+	import Separator from '../ui/separator/separator.svelte';
+	import ActivityTypeSelect from '../sidebar/map-config-components/ActivityTypeSelect.svelte';
+	import CommuteSelect from '../sidebar/map-config-components/CommuteSelect.svelte';
+	import DateRangePicker from '../sidebar/map-config-components/DateRangePicker.svelte';
 
 	export let activityData: StravaActivity[];
+
+	let startDate: any, endDate: any;
 	const table = createTable(readable(activityData), {
 		sort: addSortBy({ disableMultiSort: true }),
 		filter: addTableFilter({
@@ -317,15 +323,30 @@
 		'elapsed_time',
 		'moving_time',
 		'distance',
-		'elevation',
+		'total_elevation_gain',
 		'kilojoules',
 		'average_speed',
 		'average_cadence',
 		'average_watts',
 		'average_heartrate',
 		'start_date_local',
-		'total_elevation_gain',
 	];
+
+	function isMobile() {
+        return typeof window !== 'undefined' && window.innerWidth <= 768; 
+    }
+	
+    if (isMobile()) {
+        colsHiddenByDefault.push(
+			'elapsed_time',
+			'total_elevation_gain',
+            'kilojoules',
+            'average_speed',
+            'average_cadence',
+            'average_watts',
+            'average_heartrate',
+        );
+    }
 
 	let hideForId = Object.fromEntries(ids.map((id) => [id, !colsHiddenByDefault.includes(id)]));
 	$: $hiddenColumnIds = Object.entries(hideForId)
@@ -334,6 +355,9 @@
 </script>
 
 <div class="mx-5">
+	<ActivityTypeSelect /> <CommuteSelect /> <DateRangePicker activities={activityData} bind:startDate bind:endDate />
+	<Separator class="mt-3 mx-5 w-[calc(100vw-2.5rem)] md:w-auto" />
+
 	<div class="flex items-center py-4">
 		<Input
 			class="max-w-72 mr-4 bg-background"
